@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.restservice;
+package com.example.restservice; //declaração de pacote em que a classe reside
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -32,21 +32,24 @@ import org.springframework.test.web.servlet.MockMvc;
 public class GreetingControllerTests {
 
 	@Autowired
-	private MockMvc mockMvc;
+	private MockMvc mockMvc; // declaração de variável mock  que será injetada pelo spring
 
 	@Test
-	public void noParamGreetingShouldReturnDefaultMessage() throws Exception {
+	public void noParamGreetingShouldReturnDefaultMessage() throws Exception //método verifica se a requisição get retorna a mensagem padrão hello world/
+	 {
 
-		this.mockMvc.perform(get("/greeting")).andDo(print()).andExpect(status().isOk())
-				.andExpect(jsonPath("$.content").value("Hello, World!"));
+		this.mockMvc.perform(get("/greeting")).andDo(print()).andExpect(status().isOk()) // Simula a requisição get para greeting, andDo()(print()) imprime os detalhes da execução da request, andExpect(status().isOk()) verifica se o status da resposta é ok(200)
+				.andExpect(jsonPath("$.content").value("Hello, World!")); // verifica se o conteúdo é a mensagem personalizada esperada
 	}
 
 	@Test
-	public void paramGreetingShouldReturnTailoredMessage() throws Exception {
+	public void paramGreetingShouldReturnTailoredMessage() throws Exception //Este método sde teste verifica se a requisição GET para /greeting com um parâmetro name retorna uma mensagem personalizada.
+	
+	{
 
-		this.mockMvc.perform(get("/greeting").param("name", "Spring Community"))
+		this.mockMvc.perform(get("/greeting").param("name", "Spring Community")) // Simula uma requisição GET para /greeting com o parâmetro name definido como "Spring Community".
 				.andDo(print()).andExpect(status().isOk())
-				.andExpect(jsonPath("$.content").value("Hello, Spring Community!"));
+				.andExpect(jsonPath("$.content").value("Hello, Spring Community!")); // Verifica se o conteúdo da resposta contém a mensagem personalizada esperada.
 	}
 
 }
